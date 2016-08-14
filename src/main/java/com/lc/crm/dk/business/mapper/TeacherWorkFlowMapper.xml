@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lc.crm.dk.business.mapper.TeacherWorkFlowMapper" >
+   <insert id="insert" parameterType="com.lc.crm.dk.business.dto.TeacherWorkFlow">
+ 		insert into
+ 			teacher_work_flow(id,teacher_id,course_id,course_count,stu_count,remark,create_time)
+ 		values(#{id},#{teacherId},#{courseId},#{courseCount},#{stuCount},#{remark},now())
+ 	</insert>
+ 	
+ 	<select id="queryPageByMap" parameterType="map" resultType="com.lc.crm.dk.business.dto.TeacherWorkFlow">
+ 		select
+ 			w.id,
+ 			w.teacher_id teacherId,
+ 			u.name teacherName,
+ 			w.course_id courseId,
+ 			c.course_name courseName,
+ 			w.course_count courseCount,
+ 			w.stu_count stuCount,
+ 			w.remark,
+ 			w.create_time createTime
+ 		from
+ 			teacher_work_flow w
+ 		inner join
+ 			user u
+ 		on
+ 			w.teacher_id = u.id
+ 		inner join
+ 			course c
+ 		on
+ 			w.course_id = c.id
+ 		<where>
+ 			<if test="courseId != null and courseId != ''">
+ 				w.course_id = #{courseId}
+ 			</if>
+ 			<if test="teacherName != null and teacherName != ''">
+ 				and u.name like concat('%',#{teacherName},'%')
+ 			</if>
+ 			<if test="startTime != null and startTime != ''">
+ 				<![CDATA[ and DATE_FORMAT(w.create_time,'%Y-%m-%d') >= #{startTime}]]>
+ 			</if>
+ 			<if test="endTime != null and endTime != ''">
+ 				<![CDATA[ and DATE_FORMAT(w.create_time,'%Y-%m-%d') <= #{endTime}]]>
+ 			</if>
+ 		</where>
+ 		order by
+ 			w.create_time desc
+ 	</select>
+ 	
+ 	<select id="queryTotalCourseCount" parameterType="map" resultType="int">
+ 		select
+ 			sum(w.course_count)
+ 		from
+ 			teacher_work_flow w
+ 		inner join
+ 			user u
+ 		on
+ 			w.teacher_id = u.id
+ 		inner join
+ 			course c
+ 		on
+ 			w.course_id = c.id
+ 		<where>
+ 			<if test="courseId != null and courseId != ''">
+ 				w.course_id = #{courseId}
+ 			</if>
+ 			<if test="teacherName != null and teacherName != ''">
+ 				and u.name like concat('%',#{teacherName},'%')
+ 			</if>
+ 			<if test="startTime != null and startTime != ''">
+ 				<![CDATA[ and DATE_FORMAT(w.create_time,'%Y-%m-%d') >= #{startTime}]]>
+ 			</if>
+ 			<if test="endTime != null and endTime != ''">
+ 				<![CDATA[ and DATE_FORMAT(w.create_time,'%Y-%m-%d') <= #{endTime}]]>
+ 			</if>
+ 		</where>
+ 	</select>
+ 	
+</mapper>

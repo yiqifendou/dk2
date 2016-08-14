@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lc.crm.dk.business.mapper.CourseMapper" >
+   <select id="queryAll" resultType="com.lc.crm.dk.business.dto.Course" >
+    select 
+    	id,
+    	course_name courseName,
+    	course_type courseType,
+    	remark,
+    	create_time createTime,
+    	update_time updateTime
+    from 
+    	course
+  </select>
+  
+  <insert id="insert" parameterType="com.lc.crm.dk.business.dto.Course">
+  		insert into course(course_name,course_type,remark,create_time)
+  		values(#{courseName},#{courseType},#{remark},now())
+  </insert>
+  
+  <select id="selectByPrimaryKey" parameterType="int" resultType="com.lc.crm.dk.business.dto.Course">
+	  	select 
+	    	id,
+	    	course_name courseName,
+	    	course_type courseType,
+	    	remark,
+	    	create_time createTime,
+	    	update_time updateTime
+	    from 
+	    	course
+	    where
+	    	id = #{id}
+  </select>
+  
+  <update id="updateByPrimaryKey" parameterType="com.lc.crm.dk.business.dto.Course">
+  		update
+  			course
+  		set
+  			course_name = #{ courseName},
+  			course_type = #{courseType},
+  			remark = #{remark},
+  			update_time = now()
+  		where
+  			id = #{id}
+  </update>
+  
+</mapper>

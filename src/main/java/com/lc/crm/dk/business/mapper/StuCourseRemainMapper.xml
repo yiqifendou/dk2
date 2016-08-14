@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lc.crm.dk.business.mapper.StuCourseRemainMapper" >
+   <!-- 查询能加入班级的学生 -->
+ 	<select id="queryCanJoinGrpStuIds" parameterType="map" resultType="com.lc.crm.dk.business.dto.StuCourseRemain">
+ 		<![CDATA[
+	 		select
+	 			r.student_id studentId,
+	 			r.remain,
+	 			r.course_id courseId
+	 		from
+	 			stu_course_remain r
+	 		where
+	 			r.student_id not in (select m.student_id from grp_stu_mapping m inner join grp g on m.grp_id = g.id where g.course_id = #{courseId})
+	 		and
+	 			r.course_id = #{courseId}
+	 		and
+	 			r.remain > 0
+ 		]]>
+ 	</select>
+ 	
+ 	<select id="queryStusRemainByCourseId" parameterType="map" resultType="com.lc.crm.dk.business.dto.StuCourseRemain">
+ 		select
+			student_id studentId,
+ 			remain,
+ 			already_study alreadyStudy,
+ 			course_id courseId
+		from
+			stu_course_remain 
+		where
+			student_id in (${stuIds})	
+		and
+			course_id = #{courseId}
+ 	</select>
+ 	
+ 	<!-- 以下是关于学生课程剩余的重置和点课等操作的sql -->
+ 	
+ 	<select id="queryStusRemainByCourseIdAndStuId" parameterType="map" resultType="com.lc.crm.dk.business.dto.StuCourseRemain">
+ 		select
+			student_id studentId,
+ 			remain,
+ 			course_id courseId
+		from
+			stu_course_remain 
+		where
+			student_id = #{studentId}	
+		and
+			course_id = #{courseId}
+ 	</select>
+ 	
+ 	<insert id="insertCourseRemian" parameterType="map">
+ 		insert into 
+ 			stu_course_remain(student_id,course_id,remain,already_study,create_time)
+ 		values(#{studentId},#{courseId},#{courseCount},0,now())
+ 	</insert>
+ 	
+ 	<update id="addCourseRemain" parameterType="map">
+ 		update 
+ 			stu_course_remain
+ 		set
+ 			remain = remain + ${courseCount},
+ 			update_time = now()
+ 		where
+ 			student_id = #{studentId}
+ 		and
+ 			course_id = #{courseId}
+ 	</update>
+ 	
+ 	<update id="reduceCourseRemain" parameterType="map">
+	 	<![CDATA[
+	 		update 
+	 			stu_course_remain
+	 		set
+	 			remain = remain - ${courseCount},
+	 			already_study = already_study + ${courseCount},
+	 			update_time = now()
+	 		where
+	 			student_id = #{studentId}
+	 		and
+	 			course_id = #{courseId}
+	 		and
+	 			remain > 0
+	 	]]>
+ 	</update>
+ 	
+ 	
+ 	<!-- 课程报警 -->
+ 	<select id="queryStuCourseRemainList" parameterType="map" resultType="com.lc.crm.dk.business.dto.StuCourseRemain">
+ 		select	
+ 				r.id,
+	 			r.student_id studentId,
+	 			r.remain,
+	 			r.already_study alreadyStudy,
+	 			r.course_id courseId,
+	 			s.name `student.name`,
+	 			s.phone `student.phone`,
+	 			s.contact_name `student.contactName`,
+	 			s.total_fee `student.totalFee`,
+	 			c.course_name `course.courseName`,
+	 			c.course_type `course.courseType`
+	 		from
+	 			stu_course_remain r
+	 		inner join
+	 			student s
+	 		on
+	 			r.student_id = s.id
+	 		inner join
+	 			course c
+	 		on
+	 			r.course_id = c.id
+	 		where
+				s.stus = 1
+ 			<if test="courseId != null and courseId !=''">
+ 				and r.course_id = #{courseId}
+ 			</if>
+			order by
+				r.remain asc
+ 	</select>
+ 	
+ 	
+ 	<select id="queryStuCourseRemainListByPhone" parameterType="map" resultType="com.lc.crm.dk.business.dto.StuCourseRemain">
+ 		select	
+ 				r.id,
+	 			r.student_id studentId,
+	 			r.remain,
+	 			r.already_study alreadyStudy,
+	 			r.course_id courseId,
+	 			s.name `student.name`,
+	 			s.phone `student.phone`,
+	 			s.contact_name `student.contactName`,
+	 			s.total_fee `student.totalFee`,
+	 			c.course_name `course.courseName`,
+	 			c.course_type `course.courseType`
+	 		from
+	 			stu_course_remain r
+	 		inner join
+	 			student s
+	 		on
+	 			r.student_id = s.id
+	 		inner join
+	 			course c
+	 		on
+	 			r.course_id = c.id
+	 		where
+				s.stus = 1
+ 			<if test="phone != null and phone !=''">
+ 				and s.phone = #{phone}
+ 			</if>
+			order by
+				r.remain asc
+ 	</select>
+ 	
+ 	
+ 	<!-- 查询某个学生还有余课的科目 -->
+ 	<select id="queryHasRemainCouseByStudentId" parameterType="int" resultType="com.lc.crm.dk.business.dto.StuCourseRemain">
+ 		select
+ 			r.student_id studentId,
+ 			r.course_id courseId,
+ 			c.course_name `course.courseName`,
+ 			r.remain
+ 		from
+ 			stu_course_remain r
+ 		inner join
+ 			course c
+ 		on
+ 			r.course_id = c.id
+ 		where
+ 			r.remain>0
+ 		and
+ 			r.student_id = #{studentId}
+ 	</select>
+ 	
+ 	
+</mapper>

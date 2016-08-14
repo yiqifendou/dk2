@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lc.crm.dk.business.mapper.GrpMapper" >
+  	<insert id="insert" parameterType="com.lc.crm.dk.business.dto.Grp">
+ 		insert into grp(grp_name,teacher_id,course_id,remark,create_time)
+ 		values(#{grpName},#{teacherId},#{courseId},#{remark},now())
+ 	</insert>
+ 	
+ 	<update id="updateByPrimaryKey" parameterType="com.lc.crm.dk.business.dto.Grp">
+ 		update
+ 			grp
+ 		set
+ 			remark = #{remark},
+ 			update_time = now()
+ 		where
+ 			id = #{id}
+ 	</update>
+ 	
+ 	<select id="selectByPrimaryKey" parameterType="int" resultType="com.lc.crm.dk.business.dto.Grp">
+ 		select 
+ 			g.id,
+ 			g.grp_name grpName,
+ 			g.teacher_id teacherId,
+ 			u.name teacherName,
+ 			g.course_id courseId,
+ 			c.course_name courseName,
+ 			g.remark,
+ 			g.create_time createTime,
+ 			g.update_time updateTime
+ 		from
+ 			grp g
+ 		inner join
+ 			user u
+ 		on
+ 			g.teacher_id = u.id
+ 		left join
+ 			course c
+ 		on
+ 			g.course_id = c.id
+ 		where
+ 			g.id = #{id}
+ 	</select>
+ 	
+ 	<select id="queryPageByMap" parameterType="hashmap" resultType="com.lc.crm.dk.business.dto.Grp">
+ 		select 
+ 			g.id,
+ 			g.grp_name grpName,
+ 			g.teacher_id teacherId,
+ 			u.name teacherName,
+ 			g.course_id courseId,
+ 			c.course_name courseName,
+ 			g.remark,
+ 			g.create_time createTime,
+ 			g.update_time updateTime
+ 		from
+ 			grp g
+ 		inner join
+ 			user u
+ 		on
+ 			g.teacher_id = u.id
+ 		left join
+ 			course c
+ 		on
+ 			g.course_id = c.id
+ 		<where>
+ 			<if test="grpName != null and grpName != ''">
+ 				g.grp_name like concat('%',#{grpName},'%')
+ 			</if>
+ 		</where>
+ 		order by
+ 			g.create_time
+ 		desc
+ 	</select>
+ 	
+ 	<delete id="deleteByPrimaryKey" parameterType="int">
+ 		delete
+ 			from
+ 		grp
+ 			where
+ 		id = #{id}
+ 	</delete>
+ 	
+ 	<select id="queryByNameAndCourseIdAndTeacherId" parameterType="com.lc.crm.dk.business.dto.Grp" resultType="com.lc.crm.dk.business.dto.Grp">
+ 		select 
+ 			id,
+ 			grp_name grpName,
+ 			course_id courseId,
+ 			teacher_id teacherId,
+ 			remark,
+ 			create_time createTime,
+ 			update_time updateTime
+ 		from
+ 			grp
+ 		where
+ 			grp_name = #{grpName}
+ 		and
+ 			course_id = #{courseId}
+ 		and
+ 			teacher_id = #{teacherId}
+ 	</select>
+ 	
+ 	
+ 	
+ 	<select id="queryGrpsByTeacherId" parameterType="int" resultType="com.lc.crm.dk.business.dto.Grp">
+ 		select 
+ 			g.id,
+ 			g.grp_name grpName,
+ 			g.teacher_id teacherId,
+ 			g.course_id courseId,
+ 			c.course_name courseName,
+ 			c.course_type courseType,
+ 			g.remark,
+ 			g.create_time createTime,
+ 			g.update_time updateTime
+ 		from
+ 			grp g
+ 		left join
+ 			course c
+ 		on
+ 			g.course_id = c.id
+ 		where
+ 			g.teacher_id = #{teacherId}
+ 	</select>
+ 	
+ 	
+ 	<!-- 查询某个学生在哪些班级下 -->
+ 	<select id="queryGrpsByStudentId" parameterType="int" resultType="com.lc.crm.dk.business.dto.Grp">
+ 		select
+ 			g.id,
+ 			g.grp_name grpName
+ 		from
+ 			grp_stu_mapping m
+ 		inner join
+ 			grp g
+ 		on 
+ 			m.grp_id = g.id
+ 		where
+ 			m.student_id = #{studentId}
+ 	</select>
+ 	
+</mapper>

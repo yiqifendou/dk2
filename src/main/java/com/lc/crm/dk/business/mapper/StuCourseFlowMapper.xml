@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lc.crm.dk.business.mapper.StuCourseFlowMapper" >
+   <insert id="addStuCourseFlow" parameterType="map">
+ 		insert into
+ 			stu_course_flow(student_id,course_id,type,operate_id,teacher_work_id,course_count,recharge_fee,remark,create_time)
+ 		values(#{studentId},#{courseId},#{type},#{operateId},#{teacherWorkId},#{courseCount},#{rechargeFee},#{remark},now())
+ 	</insert>
+ 	
+ 	<select id="queryStuCourseFlowBySelective" parameterType="map" resultType="com.lc.crm.dk.business.dto.StuCourseFlow">
+ 		select 
+ 			f.id,
+ 			f.student_id studentId,
+ 			f.course_id courseId,
+ 			f.type,
+ 			f.operate_id operateId,
+ 			f.teacher_work_id teacherWorkId,
+ 			f.course_count courseCount,
+ 			f.recharge_fee rechargeFee,
+ 			f.remark,
+ 			f.create_time createTime,
+ 			u.name `operator.name`,
+ 			c.course_name `course.courseName`
+ 		from
+ 			stu_course_flow f
+ 		inner join
+ 			user u
+ 		on
+ 			f.operate_id = u.id
+ 		inner join
+ 			course c
+ 		on
+ 			f.course_id = c.id
+ 		where
+ 			f.student_id = #{studentId}
+ 		<if test="courseId != null and courseId != ''">
+ 			and f.course_id = #{courseId}
+ 		</if>
+ 		order by
+ 			f.create_time desc
+ 	</select>
+</mapper>

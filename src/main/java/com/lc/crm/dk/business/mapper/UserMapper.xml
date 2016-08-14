@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lc.crm.dk.business.mapper.UserMapper" >
+ 	<insert id="insert" parameterType="com.lc.crm.dk.business.dto.User">
+ 		insert into user(account,password,name,phone,type,entry_time,course_arr,stus,remark,create_time)
+ 		values(#{account},#{password},#{name},#{phone},0,#{entryTime},#{courseArr},#{stus},#{remark},now())
+ 	</insert>
+ 	
+ 	<update id="updateByPrimaryKeySelective" parameterType="com.lc.crm.dk.business.dto.User">
+ 		update
+ 			user
+ 		set
+ 			<if test="name != null and name != ''">
+ 				name = #{name},
+ 			</if>
+ 			<if test="phone != null and phone != ''">
+ 				phone = #{phone},
+ 			</if>
+ 			<if test="entryTime != null">
+ 				entry_time = #{entryTime},
+ 			</if>
+ 			<if test="stus != null">
+ 				stus = #{stus},
+ 			</if>
+ 			<if test="courseArr != null and courseArr != ''">
+ 				course_arr = #{courseArr},
+ 			</if>
+ 			remark = #{remark},
+ 			update_time = now()
+ 		where
+ 			id = #{id}
+ 	</update>
+ 	
+ 	<update id="updateMyInfo" parameterType="com.lc.crm.dk.business.dto.User">
+ 		update
+ 			user
+ 		set	
+ 			phone = #{phone},
+ 			remark = #{remark},
+ 			update_time = now()
+ 		where
+ 			id = #{id}
+ 	</update>
+ 	
+ 	<update id="updatePasswordByUserId" parameterType="map">
+ 		update
+ 			user
+ 		set
+ 			password = #{password}
+ 		where
+ 			id = #{id}
+ 	</update>
+ 	
+ 	
+ 	<select id="selectByPrimaryKey" parameterType="int" resultType="com.lc.crm.dk.business.dto.User">
+ 		select 
+ 			id,
+ 			account,
+ 			name,
+ 			phone,
+ 			type,
+ 			entry_time entryTime,
+ 			course_arr courseArr,
+ 			stus,
+ 			remark,
+ 			create_time createTime,
+ 			update_time updateTime
+ 		from
+ 			user
+ 		where
+ 			id = #{id}
+ 	</select>
+ 	
+ 	<select id="queryPasswordById" parameterType="int" resultType="com.lc.crm.dk.business.dto.User">
+ 		select
+ 			id,
+ 			password
+ 		from
+ 			user
+ 		where
+ 			id = #{id}
+ 	</select>
+ 	
+ 	<select id="queryPageByMap" parameterType="hashmap" resultType="com.lc.crm.dk.business.dto.User">
+ 		select
+ 			id,
+ 			account,
+ 			name,
+ 			phone,
+ 			type,
+ 			entry_time entryTime,
+ 			course_arr courseArr,
+ 			stus,
+ 			remark,
+ 			create_time createTime,
+ 			update_time updateTime
+ 		from
+ 			user
+ 		<where>
+ 			<if test="account != null and account != ''">
+ 				account like concat('%',#{account},'%')
+ 			</if>
+ 			<if test="name != null and name != ''">
+ 				and name like concat('%',#{name},'%')
+ 			</if>
+ 			<if test="phone != null and phone != ''">
+ 				and phone like concat('%',#{phone},'%')
+ 			</if>
+ 			<if test="stus != null">
+ 				and stus = #{stus}
+ 			</if>
+ 		</where>
+ 		order by
+ 			stus desc,create_time desc
+ 	</select>
+ 	
+ 	<select id="queryByAccount" parameterType="string" resultType="com.lc.crm.dk.business.dto.User">
+ 		select
+ 			id,
+ 			account,
+ 			password,
+ 			name,
+ 			phone,
+ 			type,
+ 			entry_time entryTime,
+ 			course_arr courseArr,
+ 			stus,
+ 			remark,
+ 			create_time createTime,
+ 			update_time updateTime
+ 		from
+ 			user
+ 		where
+ 			account = #{account}
+ 	</select>
+ 	
+ 	
+ 	<select id="queryUserByStusAndType" parameterType="map" resultType="com.lc.crm.dk.business.dto.User">
+		select
+			id,
+ 			account,
+ 			name,
+ 			phone,
+ 			type,
+ 			course_arr courseArr,
+ 			stus,
+ 			remark
+ 		from
+ 			user
+ 		where
+ 			stus = #{stus}
+ 		and
+ 			type = #{type}
+ 	</select>
+ 	
+ 	<!-- 需要进行再次过滤，防止1，11，111的混进courseId为1中 -->
+ 	<select id="queryTeacherByCourseId" parameterType="string" resultType="com.lc.crm.dk.business.dto.User">
+ 		select
+			id,
+ 			name,
+ 			phone,
+ 			course_arr courseArr
+ 		from
+ 			user
+ 		where
+ 			stus = 1
+ 		and
+ 			course_arr like concat('%',#{courseId},'%')	
+ 	</select>
+ 	
+</mapper>
