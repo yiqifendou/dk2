@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>webapp</display-name>
+	<!-- Spring和mybatis的配置文件 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:conf/spring/spring.xml,classpath:conf/spring/spring-mybatis.xml</param-value>
+	</context-param>
+
+	<!-- 由Sprng载入的Log4j配置文件位置 -->
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>classpath:conf/log4j/log4j.properties</param-value>
+	</context-param>
+
+
+	<!-- httpsession监听器 -->
+	<listener>
+		<listener-class>com.lc.crm.dk.base.listener.SessionListener</listener-class>
+	</listener>
+	<!-- log4j监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	<!-- Spring监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!--servletContext创建和销毁监听器 -->
+	<listener>
+		<listener-class>com.lc.crm.dk.base.listener.ApplicationListener</listener-class>
+	</listener>
+	<!--servletContext属性监听器 -->
+	<listener>
+		<listener-class>com.lc.crm.dk.base.listener.ApplicationAttributeListener</listener-class>
+	</listener>
+
+	<!-- 防止Spring内存溢出监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+
+
+	<!-- 编码过滤器 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	<!-- 处理静态资源不被springmvc拦截 (也可以用nginx等做动静态分离,或者在springmvc中加入<mvc:resources 
+		location="/static/" mapping="/static/**"></mvc:resources>)， 要写在springmvc 
+		dispatcherServlet 之前 Tomcat, Jetty, JBoss, and GlassFish：默认 Servlet 名字为 "default" 
+		Google App Engine：默认 Servlet 名字为 "_ah_default" Resin：默认 Servlet 名字为 "resin-file" 
+		WebLogic：默认 Servlet 名字为 "FileServlet" WebSphere：默认 Servlet 名字为 "SimpleFileServlet" -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/static/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.ico</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- Spring MVC servlet -->
+	<servlet>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:conf/spring/spring-mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>/login.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- 出错页面定义,其他具体异常可在springmvc里做了配置 -->
+	<error-page>
+		<error-code>403</error-code>
+		<location>/pages/errorPages/403</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/pages/errorPages/404</location>
+	</error-page>
+	<!-- 以下错误已在springmvc中定义异常处理类，自动跳转errorPages/error视图 -->
+	<!-- <error-page>
+		<error-code>500</error-code>
+		<location>/pages/errorPages/500</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/pages/errorPages/500</location>
+	</error-page> -->
+</web-app>
