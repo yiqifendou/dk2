@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sessionIntercepts xmlns="http://www.lc.crm.com"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.lc.crm.com sessionIntercept_1.0.xsd">
+	<!-- session拦截配置,拦截某些requestMapping,false时一率转到errPage所对应的页面 handleClass:处理类 
+		handleMethod：处理方法 errorRequestMapping:session校验不通过时转发的页面 requestMappings:以逗号分割 -->
+	<sessionIntercept handleClass="com.lc.crm.dk.base.interceptor.SessionHandler"
+		handleMethod="checkLogin" errorRequestMapping="/pages/errorPages/noauth">
+		<requestMappings>
+			/student/toStudyCourseDialog,
+			/student/studyCourseInPrivete,
+			/student/studyCourseInPublic,
+			/student/courseFlowList,
+			/user/console,
+			/user/toUpdatePwdDialog,
+			/user/updatePwd,
+			/user/toUpdateMyInfoDialog,
+			/user/queryMyInfo,
+			/user/updateMyInfo,
+			/user/teacherWorkFlowList,
+			/user/teacherMain
+		</requestMappings>
+	</sessionIntercept>
+	
+	<sessionIntercept handleClass="com.lc.crm.dk.base.interceptor.SessionHandler"
+		handleMethod="checkAdmin" errorRequestMapping="/pages/errorPages/noauth">
+		<requestMappings>
+			/course/courseList,
+			/course/toAddCourseDialog,
+			/course/addCourse,
+			/course/queryByCourseId,
+			/course/toUpdateCourseDialog,
+			/course/updateCourse,
+			/grp/grpList,
+			/grp/toAddGrp,
+			/grp/deleteGrp,
+			/grp/joinGrpStuList,
+			/grp/addGrp,
+			/grp/toUpdateGrp,
+			/grp/updateGrp,
+			/student/studentList,
+			/student/toAddStudentDialog,
+			/student/addStudent,
+			/student/toUpdateStudentDialog,
+			/student/queryStudent,
+			/student/updateStudent,
+			/student/toRechargeStuCourseDialog,
+			/student/rechargeCourse,
+			/student/courseRemainList,
+			/user/queryUserInfoByAdmin,
+			/user/toAddUserDialog,
+			/user/addUser,
+			/user/resetLoginPwd,
+			/user/toUpdateUserDialog,
+			/user/updateUserByAdmin,
+			/user/userList,
+			/user/queryTeacherByCourseId
+		</requestMappings>
+	</sessionIntercept>
+	
+</sessionIntercepts>
