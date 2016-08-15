@@ -17,7 +17,7 @@
   		insert into course(course_name,course_type,remark,create_time)
   		values(#{courseName},#{courseType},#{remark},now())
   </insert>
-  
+
   <select id="selectByPrimaryKey" parameterType="int" resultType="com.lc.crm.dk.business.dto.Course">
 	  	select 
 	    	id,
