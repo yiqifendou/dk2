@@ -1,0 +1,47 @@
+	.pageContent td{
+	    border-right: solid 1px #ededed;
+	    border-bottom: solid 1px #ededed;
+	}
+	.pageContent th{
+		border-top: solid 1px #ededed;
+		border-right: solid 1px #ededed;
+	    border-bottom: solid 1px #ededed;
+	}
+	.roomList td{
+	    border-right: solid 1px #7cc5e5;
+	    border-bottom: solid 1px #7cc5e5;
+	}
+	.roomList th{
+		border-right: solid 1px #ededed;
+	    border-bottom: solid 1px #ededed;
+	}
+	.linetime{
+		text-indent: -46px;
+	}
+	
+	#layerTipEx .layui-layer-tips .layui-layer-content{
+		background-color: rgba(13, 205, 253, 1);
+	}
+	#layerTipEx .layui-layer-tips i.layui-layer-TipsR{
+	    border-bottom-color: rgba(13, 205, 253, 1);
+	}
+	.tdDragSelected{
+		background: rgba(49, 204, 239, 0.25);
+	}
+	
+	/*屏蔽文字选中*/
+	.roomList table{
+	-moz-user-select:none;/*火狐*/
+	-webkit-user-select:none;/*webkit浏览器*/
+	-ms-user-select:none;/*IE10*/
+	-khtml-user-select:none;/*早期浏览器*/
+	user-select:none;
+	}
+	
+	/*邮件菜单*/
+	.smart_menu_box{
+		width:100px;
+	}
+	.smart_menu_body .smart_menu_li{
+		text-indent: -18px;
+	}
