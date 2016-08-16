@@ -1,9 +1,9 @@
 package com.lc.crm.dk.business.mapper;
 
-import java.util.Map;
-
 import com.lc.crm.dk.base.mapper.BaseMapper;
 import com.lc.crm.dk.business.dto.TeacherWorkFlow;
+
+import java.util.Map;
 
 public interface TeacherWorkFlowMapper extends BaseMapper<TeacherWorkFlow>{
 	/**
@@ -11,5 +11,5 @@ public interface TeacherWorkFlowMapper extends BaseMapper<TeacherWorkFlow>{
 	 * @param map
 	 * @return
 	 */
-	public int queryTotalCourseCount(Map<String, Object> map);
+	public Integer queryTotalCourseCount(Map<String, Object> map);
 }

@@ -46,7 +46,7 @@
  			w.create_time desc
  	</select>
  	
- 	<select id="queryTotalCourseCount" parameterType="map" resultType="int">
+ 	<select id="queryTotalCourseCount" parameterType="map" resultType="java.lang.Integer">
  		select
  			sum(w.course_count)
  		from

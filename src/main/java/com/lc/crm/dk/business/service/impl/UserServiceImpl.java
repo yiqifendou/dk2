@@ -1,15 +1,5 @@
 package com.lc.crm.dk.business.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lc.crm.dk.base.constant.Constant;
@@ -21,6 +11,14 @@ import com.lc.crm.dk.business.dto.User;
 import com.lc.crm.dk.business.mapper.TeacherWorkFlowMapper;
 import com.lc.crm.dk.business.mapper.UserMapper;
 import com.lc.crm.dk.business.service.UserService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService{
@@ -67,8 +65,8 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	@Override
 	public Paging<TeacherWorkFlow> queryWorkFlowJUIPage(HashMap<String, Object> map, HttpServletRequest request) {
 		//总课时
-		int totalCourseCount = teacherWorkFlowMapper.queryTotalCourseCount(map);
-		request.setAttribute("totalCourseCount", totalCourseCount);
+		Integer totalCourseCount = teacherWorkFlowMapper.queryTotalCourseCount(map);
+		request.setAttribute("totalCourseCount", totalCourseCount==null?0:totalCourseCount);
 		
 		Integer pageNum = StringUtils.isNotEmpty(request.getParameter("pageNum")) ? Integer.parseInt(request.getParameter("pageNum")) : 1;
 		Integer numPerPage = StringUtils.isNotEmpty(request.getParameter("numPerPage"))	? Integer.parseInt(request.getParameter("numPerPage")) : Constant.Page.DEFAULT_PAGESIZE;
