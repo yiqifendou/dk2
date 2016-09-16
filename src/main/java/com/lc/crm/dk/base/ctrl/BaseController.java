@@ -39,7 +39,8 @@ public class BaseController {
 	/**
 	 * 将数据相应到客户端
 	 * 
-	 * @param data
+	 * @param response
+	 * @param vo
 	 */
 	protected void responseToBrowser(HttpServletResponse response,ResponseVo vo) {
 		try {

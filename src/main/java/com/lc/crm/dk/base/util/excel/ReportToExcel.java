@@ -128,10 +128,6 @@ public class ReportToExcel {
 					continue;
 				} else {
 					// 囊括 byte、short、long、String等其他所有的类型
-					// 莲花的机务那块要求故障时用红色强调列样式
-					if ("故障".equals(value)) {
-						bodyCell.setCellStyle(strongBodyStyle);
-					}
 					bodyCell.setCellValue(value.toString());
 				}
 			}

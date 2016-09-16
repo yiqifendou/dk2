@@ -15,7 +15,7 @@
 	 		and
 	 			r.course_id = #{courseId}
 	 		and
-	 			r.remain > 0
+	 			r.remain >= 0
  		]]>
  	</select>
  	
