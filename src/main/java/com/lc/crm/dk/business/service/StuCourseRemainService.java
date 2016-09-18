@@ -32,4 +32,11 @@ public interface StuCourseRemainService extends BaseService<StuCourseRemain>{
 	 * @return
 	 */
 	List<StuCourseRemain> queryStuCourseRemainListByPhone(Map<String, Object> map);
+
+	/**
+	 * 根据学生id&课程id查询该学生课程剩余数量，课程id有可能未传
+	 * @param map
+	 * @return
+	 */
+	List<StuCourseRemain> queryStuCourseRemainList(Map<String, Object> map);
 }

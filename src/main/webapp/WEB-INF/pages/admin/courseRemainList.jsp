@@ -14,6 +14,7 @@
 	<input type="hidden" name="pageNum" value="1" />
 	<input type="hidden" name="numPerPage" value="${p.numPerPage}" />
 	<input type="hidden" name="courseId" value="${param.courseId}" />
+	<input type="hidden" name="studentName" value="${param.studentName}" />
 </form>
 
 
@@ -31,7 +32,9 @@
 								<option <c:if test="${param.courseId == course.id}">selected</c:if> value="${course.id}">${course.courseName}</option>
 							</c:forEach>
 					</select></td>
-					
+					<td>&nbsp;&nbsp;
+						姓名：<input type="text"  name="studentName" value="${param.studentName}"  />
+					</td>
 					<td><div class="buttonActive"><div class="buttonContent"><button style="width: 30px;height: 30px;" type="submit">查询</button></div></div></td>
 					<td><div class="buttonActive"><div class="buttonContent"><button style="width: 30px;height: 30px;" class="reset" type="button">重置</button></div></div></td>
 				</tr>
@@ -82,7 +85,8 @@
 	$(function(){
 		$("#courseRemainlistPage .reset").on("click",function(){
 			$("#courseRemainlistPage select[name='courseId']").val("");
-			$("#courseRemainlistPage a[name='courseId']").text("所有课程"); 
+			$("#courseRemainlistPage a[name='courseId']").text("所有课程");
+			$("#courseRemainlistPage input[name='studentName']").val("");
 		});
 	});
 </script>

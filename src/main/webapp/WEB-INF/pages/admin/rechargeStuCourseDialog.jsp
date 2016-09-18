@@ -33,7 +33,7 @@
 				
 				<div class="unit">
 					<label> 充值课时（节）：</label>
-					<input type="text" name="courseCount"  size="50" class="digits required" min="1" />
+					<input type="text" name="courseCount"  size="50" class="digits required" min="0" />
 				</div>
 				
 				<div class="unit">

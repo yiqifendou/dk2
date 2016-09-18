@@ -152,7 +152,7 @@ $(function(){
 			confirmStuArr.push($(this).attr("data-stuid"));
 		});
 		
-		alertMsg.confirm("确认添加吗？（课程剩余0的学员将无法添加到该班级）", {
+		alertMsg.confirm("确认添加吗？（课程剩余小于0的学员将无法添加到该班级）", {
 			okCall: function(){
 				$.ajax({
 					url:c.ctx+"/grp/addGrp",

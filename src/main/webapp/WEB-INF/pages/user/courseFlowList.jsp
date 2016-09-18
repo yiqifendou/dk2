@@ -58,6 +58,16 @@
 					</td>
 				</tr>
 			</c:forEach>
+			<tr>
+				<td style="text-align: center;color: #FF0097;" colspan="10">
+					课程剩余情况:
+					${courseRemains}
+					<c:forEach items="${scrList}" var="scr" >
+						${scr.course.courseName} 剩${scr.remain}节，学${scr.alreadyStudy}节；
+					</c:forEach>
+					（来源所有分页数据）
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	<%@include file="/static/include/pageFooter.jsp"%>

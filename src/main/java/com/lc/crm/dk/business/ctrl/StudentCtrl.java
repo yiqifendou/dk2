@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.lc.crm.dk.business.mapper.StuCourseRemainMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -243,8 +244,8 @@ public class StudentCtrl extends BaseController{
 			Validate.notEmpty(courseId, "courseId不能为空！");
 			String courseCount = request.getParameter("courseCount");
 			Validate.notEmpty(courseCount, "courseCount不能为空！");
-			if(Integer.parseInt(courseCount)<1){
-				throw new RuntimeException("充值课程必须大于1节！");
+			if(Integer.parseInt(courseCount)<0){
+				throw new RuntimeException("充值课程必须大于等于0节！");
 			}
 			String type = request.getParameter("type");
 			Validate.notEmpty(type, "type不能为空！");
@@ -396,7 +397,7 @@ public class StudentCtrl extends BaseController{
 	@RequestMapping("/courseRemainList")
 	public String courseRemainList(HttpServletRequest request,HttpServletResponse response,Model model){
 		model.addAttribute("courseList", courseService.queryAll());
-		Paging<StuCourseRemain> p = stuCourseRemainService.queryCourseRemainJUIPage(new MapExt<String,Object>("courseId",request.getParameter("courseId")),request);
+		Paging<StuCourseRemain> p = stuCourseRemainService.queryCourseRemainJUIPage(new MapExt<String,Object>("courseId",request.getParameter("courseId"),"studentName",request.getParameter("studentName")),request);
 		model.addAttribute("p", p);
 		return "admin/courseRemainList";
 	}
@@ -408,11 +409,22 @@ public class StudentCtrl extends BaseController{
 	@RequestMapping("/courseFlowList")
 	public String courseFlowList(HttpServletRequest request,HttpServletResponse response,Model model){
 		Integer studentId = Integer.parseInt(request.getParameter("studentId"));
+		String courseId = request.getParameter("courseId");
 		Student student = studentService.selectByPrimaryKey(studentId);
-		Paging<StuCourseFlow> p = stuCourseFlowService.queryStuCourseFlowJUIPageByStudentId(new MapExt<String,Object>("studentId",studentId,"courseId",request.getParameter("courseId")), request);
+
+		Map<String,Object> map = new MapExt<String,Object>("studentId",studentId,"courseId",courseId);
+
+		//查询该学生课程流水
+		Paging<StuCourseFlow> p = stuCourseFlowService.queryStuCourseFlowJUIPageByStudentId(map, request);
 		model.addAttribute("student", student);
 		model.addAttribute("p", p);
+
+		//查询该学生课程剩余情况scrList
+		List<StuCourseRemain> scrList = stuCourseRemainService.queryStuCourseRemainList(map);
+		model.addAttribute("scrList", scrList);
+
 		return "user/courseFlowList";
 	}
-	
+
+
 }

@@ -17,7 +17,7 @@ public interface StudentService extends BaseService<Student>{
 	void rechargeCourse(Map<String, Object> map);
 	/**
 	 * 点课
-	 * @param map
+	 * @param mapList
 	 */
 	void batchStudyCourse(List<Map<String,Object>> mapList);
 	

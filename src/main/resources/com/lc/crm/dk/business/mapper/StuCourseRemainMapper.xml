@@ -110,9 +110,15 @@
 	 			r.course_id = c.id
 	 		where
 				s.stus = 1
+			<if test="studentId != null and studentId !=''">
+				and r.student_id = #{studentId}
+			</if>
  			<if test="courseId != null and courseId !=''">
  				and r.course_id = #{courseId}
  			</if>
+			<if test="studentName != null and studentName !=''">
+				and s.name like concat('%',#{studentName},'%')
+			</if>
 			order by
 				r.remain asc
  	</select>
