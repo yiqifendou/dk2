@@ -138,3 +138,7 @@ tomcat中server.xml应该加入<Context crossContext="true" docBase="D:/fileuplo
 	<input type="submit" value="tijiao" />  
 	<input type="button" value="button" onclick="syncAllEditor();document.forms[0].submit();" />
 </form>
+
+
+
+请一定要阅读这个文件哦
