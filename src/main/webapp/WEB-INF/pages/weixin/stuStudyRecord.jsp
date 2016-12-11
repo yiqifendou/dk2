@@ -11,11 +11,6 @@
 <link rel="stylesheet" href="${ctx}/static/compoment/wap/css/list.css">
 <script src="${ctx}/static/script/m.c.js" type="text/javascript"></script>
 <script type="text/javascript" src="${ctx}/static/compoment/layer/layer.js"></script>
-<script type="text/javascript">
-if(!com.lc.crm.dk.c.getCookie("bindPhone")){
-	location.href = "${ctx}/weixin/toBindPhone";
-}
-</script>
 <style type="text/css">
     .account-menu em {
         padding-left: 0px;

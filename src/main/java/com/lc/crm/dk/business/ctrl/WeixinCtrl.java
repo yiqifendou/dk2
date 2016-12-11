@@ -259,9 +259,23 @@ public class WeixinCtrl extends BaseController{
         return "weixin/gsrDetail";
     }
 
+    @RequestMapping("/toStuStudyCourse")
+    public String toStuStudyCourse(HttpServletRequest request,Model model){
+        String studentId = request.getParameter("studentId");
+        String grpId = request.getParameter("grpId");
+        Validate.notEmpty(grpId, "grpId不能为空！");
+        Grp grp = grpService.selectByPrimaryKey(Integer.parseInt(grpId));
+        if(StringUtils.isNotBlank(studentId)){
+            Student student = studentService.selectByPrimaryKey(Integer.parseInt(studentId));
+            model.addAttribute("student",student);
+        }
+        model.addAttribute("grp",grp);
+        return "weixin/stuStudyCourse";
+    }
+
 
     /**
-     *小课  学生点课
+     *小课  学生点课studentId，grpId，remark，courseCount
      * @param request
      * @param response
      */
@@ -315,7 +329,7 @@ public class WeixinCtrl extends BaseController{
 
 
     /**
-     *大课  学生点课
+     *大课  学生点课grpId，remark，courseCount
      * @param request
      * @param response
      */
