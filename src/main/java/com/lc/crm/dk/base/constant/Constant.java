@@ -16,6 +16,8 @@ public interface Constant {
 	String LOGIN_USER_INFO = "loginUserInfo";
 	//用户信息加密key
 	String LOGINUSER_SECURITY_KEY = AESUtil.generateKey();
+    //其他信息加密key
+    String OTHER_INFO_SECURITY_KEY = AESUtil.generateKey();
 	//md5签名key
 	String SIGN_SECURITY_KEY = RandomStrUtil.generateStr(10);
 	//默认登录密码
@@ -44,6 +46,8 @@ public interface Constant {
 		int NEWPWD_NOT_MATCH = 1006;
 		//该号码不存在
 		int PHONE_NOT_EXIST = 1007;
+        //该号码不存在
+        int REPEAT_BIND_WEIXIN = 1008;
 	}
 	
 	public interface Page{

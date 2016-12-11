@@ -8,12 +8,9 @@
 <title>error</title>
 </head>
 <body>
-	服务器发生错误，请稍后再试！
-	<!-- 使用这种注释方式，开发人员只要按下f12就可以看到错误信息了，而用户则不会直接看到错误信息 -->
-	<!--
-	<c:if test="${ not empty stackTrace}">
-        ${stackTrace}
-    </c:if>
-    -->
+	出错了！
+    <c:if test="${ not empty errMsg}">
+        ${errMsg}
+    </c:if>$
 </body>
 </html>

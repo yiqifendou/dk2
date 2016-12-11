@@ -16,7 +16,7 @@ public class LoginUserUtil {
 	/**
 	 * 保存登录用户
 	 * @param resp
-	 * @param loginEmp
+	 * @param loginUser
 	 */
 	public static void saveLoginUser(HttpServletResponse resp,User loginUser){
 		//aes加密后的用户信息

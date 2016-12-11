@@ -16,19 +16,24 @@ if(!com.lc.crm.dk.c.getCookie("bindPhone")){
 	location.href = "${ctx}/weixin/toBindPhone";
 }
 </script>
+<style type="text/css">
+    .account-menu em {
+        padding-left: 0px;
+    }
+</style>
 <title>课程流水</title>
 </head>
 <body>
 	<header>
 		<div class="header" style="height: 3rem;line-height: 3rem;background: #1389FE;font-size: 1rem;color: #fff;text-align: center;">
-			${student.name}(${course.courseName}|剩${param.remain}|学${param.alreadyStudy})
+			${student.name}(${course.courseName})
 		</div>
 	</header>
  
 	<div class="account-menu menu" role="menu">
 		<c:forEach items="${scfList}" var="b">
 			<a role="menuitem" class="menuitem" href="javascript:layer.msg('备注：${b.remark}');">
-				<em class="fav">
+				<em>
 						<fmt:formatDate value="${b.createTime}" pattern="yyyyMMdd" />
 						&nbsp;&nbsp;
 						<c:if test="${b.type==0}">

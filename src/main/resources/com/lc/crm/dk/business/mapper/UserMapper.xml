@@ -63,6 +63,7 @@
  			course_arr courseArr,
  			stus,
  			remark,
+ 			openid,
  			create_time createTime,
  			update_time updateTime
  		from
@@ -92,6 +93,7 @@
  			course_arr courseArr,
  			stus,
  			remark,
+            openid,
  			create_time createTime,
  			update_time updateTime
  		from
@@ -126,6 +128,7 @@
  			course_arr courseArr,
  			stus,
  			remark,
+ 			openid,
  			create_time createTime,
  			update_time updateTime
  		from
@@ -144,7 +147,8 @@
  			type,
  			course_arr courseArr,
  			stus,
- 			remark
+ 			remark,
+ 			openid
  		from
  			user
  		where
@@ -167,5 +171,40 @@
  		and
  			course_arr like concat('%',#{courseId},'%')	
  	</select>
+    
+    <select id="queryByOpenid" parameterType="com.lc.crm.dk.business.dto.User" resultType="com.lc.crm.dk.business.dto.User">
+      select
+			id,
+ 			account,
+ 			name,
+ 			phone,
+ 			type,
+ 			course_arr courseArr,
+ 			stus,
+ 			remark,
+ 			openid
+ 		from
+ 			user
+ 	    WHERE
+          openid = #{openid}
+    </select>
+
+    <update id="teacherBindWeixin" parameterType="com.lc.crm.dk.business.dto.User">
+        UPDATE
+          user
+        SET
+          openid = #{openid}
+        WHERE
+          id = #{id}
+    </update>
+
+    <update id="teacherCancelBind" parameterType="com.lc.crm.dk.business.dto.User">
+        UPDATE
+          user
+        SET
+          openid = NULL
+        WHERE
+          id = #{id}
+    </update>
  	
 </mapper>

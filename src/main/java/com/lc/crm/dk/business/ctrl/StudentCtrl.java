@@ -311,9 +311,7 @@ public class StudentCtrl extends BaseController{
 				throw new RuntimeException("对不起，只有班级负责人才能点课！");
 			}
 			//查询该课程是否是小课
-			Integer courseId = grp.getCourseId();
-			Course course = courseService.selectByPrimaryKey(courseId);
-			if(course.getCourseType()==1){
+			if(grp.getCourseType()==1){
 				//大课，无法单个学生点课
 				throw new RuntimeException("集体课不允许对单个学生进行点课！");
 			}
@@ -327,7 +325,7 @@ public class StudentCtrl extends BaseController{
 					throw new RuntimeException("课时必须大于1节！");
 				}
 				Integer operateId = loginUser.getId();
-				Map<String, Object> map = new MapExt<String,Object>("studentId",studentId,"courseId",courseId,"courseCount",courseCount,"type",0,"rechargeFee",0,"remark",remark,"operateId",operateId);
+				Map<String, Object> map = new MapExt<String,Object>("studentId",studentId,"courseId",grp.getCourseId(),"courseCount",courseCount,"type",0,"rechargeFee",0,"remark",remark,"operateId",operateId);
 				List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
 				mapList.add(map);
 				studentService.batchStudyCourse(mapList);
@@ -364,9 +362,7 @@ public class StudentCtrl extends BaseController{
 				throw new RuntimeException("对不起，只有班级负责人才能点课！");
 			}
 			//查询该课程是否是大课
-			Integer courseId = grp.getCourseId();
-			Course course = courseService.selectByPrimaryKey(courseId);
-			if(course.getCourseType()==0){
+			if(grp.getCourseType()==0){
 				//小课无法进行全班级点课
 				throw new RuntimeException("小课不允许对整个班级进行点课！");
 			}
@@ -379,7 +375,7 @@ public class StudentCtrl extends BaseController{
 			List<Student> studentList = studentService.queryStusByGrpId(grp);
 			List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
 			for(Student s:studentList){
-				Map<String, Object> map = new MapExt<String,Object>("studentId",s.getId(),"courseId",courseId,"courseCount",courseCount,"type",0,"rechargeFee",0,"remark",remark,"operateId",loginUser.getId());
+				Map<String, Object> map = new MapExt<String,Object>("studentId",s.getId(),"courseId",grp.getCourseId(),"courseCount",courseCount,"type",0,"rechargeFee",0,"remark",remark,"operateId",loginUser.getId());
 				mapList.add(map);
 			}
 			studentService.batchStudyCourse(mapList);

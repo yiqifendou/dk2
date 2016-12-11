@@ -71,6 +71,7 @@
 				<th width="350" style="text-align: center;">授课列表</th>
 				<th width="80">状态</th>
 				<th width="350" style="text-align: center;">备注</th>
+                <th width="100">openid</th>
 				<th width="130">入职时间</th>
 				<th width="200">创建时间</th>
 				<th width="200">更新时间</th>
@@ -112,6 +113,9 @@
 					<td style="text-align: center;">
 						${b.remark}
 					</td>
+                    <td style="text-align: center;">
+                            ${b.openid}
+                    </td>
 					<td>
 						<fmt:formatDate value="${b.entryTime}" pattern="yyyy/MM/dd" />
 					</td>

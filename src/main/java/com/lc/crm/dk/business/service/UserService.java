@@ -20,5 +20,8 @@ public interface UserService extends BaseService<User>{
 	public User queryPasswordById(Integer id);
 	public List<User> queryUserByStusAndType(Map<String, Object> map);
 	public List<User> queryTeacherByCourseId(String courseId);
-	 Paging<TeacherWorkFlow> queryWorkFlowJUIPage(HashMap<String, Object> map,HttpServletRequest request);
+    Paging<TeacherWorkFlow> queryWorkFlowJUIPage(HashMap<String, Object> map,HttpServletRequest request);
+    public User queryByOpenid(User user);
+    public void teacherBindWeixin(User user);
+    public void teacherCancelBind(User user);
 }

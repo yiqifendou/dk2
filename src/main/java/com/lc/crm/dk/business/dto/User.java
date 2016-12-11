@@ -22,6 +22,8 @@ public class User implements Serializable{
 	//用户状态 1：正常，0：冻结
 	private Integer stus;
 	private String remark;
+	//用于教师进行微信绑定
+	private String openid;
 	private Date createTime;
 	private Date updateTime;
 	public Integer getId() {
@@ -83,6 +85,12 @@ public class User implements Serializable{
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public String getOpenid() {
+		return openid;
+	}
+	public void setOpenid(String openid) {
+		this.openid = openid;
 	}
 	public Date getCreateTime() {
 		return createTime;

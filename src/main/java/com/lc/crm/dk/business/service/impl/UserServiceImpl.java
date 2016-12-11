@@ -83,5 +83,20 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 		p.setTotalPage(pi.getPages());
 		return p;
 	}
-	
+
+    @Override
+    public User queryByOpenid(User user) {
+        return userMapper.queryByOpenid(user);
+    }
+
+    @Override
+    public void teacherBindWeixin(User user) {
+        userMapper.teacherBindWeixin(user);
+    }
+
+    @Override
+    public void teacherCancelBind(User user) {
+        userMapper.teacherCancelBind(user);
+    }
+
 }

@@ -3,6 +3,7 @@ package com.lc.crm.dk.base.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.lc.crm.dk.base.util.EncryptionUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import com.alibaba.fastjson.JSON;
@@ -36,11 +37,7 @@ public class SessionHandler {
 		}
 		//签名校验
 		String realSign = DecriptUtil.MD5(securityUser+""+timeStamp+""+randomStr+""+Constant.SIGN_SECURITY_KEY);
-		if(!realSign.equals(sign)){
-			//签名不合法
-			return false;
-		}
-		return true;
+        return realSign.equals(sign);
 	}
 	
 	
@@ -74,4 +71,9 @@ public class SessionHandler {
 		}
 		return false;
 	}
+
+	public static boolean checkOpenid(HttpServletRequest request,HttpServletResponse response){
+        String encryptKey = CookieUtils.getCookie(request, "encryptKey");
+        return StringUtils.isNotBlank(encryptKey)&&EncryptionUtil.decrypt(encryptKey, String.class).isRightSign();
+    }
 }

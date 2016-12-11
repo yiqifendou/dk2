@@ -36,7 +36,7 @@ if(!com.lc.crm.dk.c.getCookie("bindPhone")){
  
 	<div class="account-menu menu" role="menu">
 		<c:forEach items="${stuCourseRemainList}" var="r">
-			<a role="menuitem" class="menuitem" href="${ctx}/weixin/queryStuStudyRecord?studentId=${r.studentId}&courseId=${r.courseId}&remain=${r.remain}&alreadyStudy=${r.alreadyStudy}">
+			<a role="menuitem" class="menuitem" href="${ctx}/weixin/queryStuStudyRecord?studentId=${r.studentId}&courseId=${r.courseId}">
 				<i>详情</i>
 				<em class="fav">${r.student.name}&nbsp;&nbsp;${r.course.courseName}&nbsp;&nbsp;剩${r.remain}节&nbsp;&nbsp;学${r.alreadyStudy}节</em>
 			</a>

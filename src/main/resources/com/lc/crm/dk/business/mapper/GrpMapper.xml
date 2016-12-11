@@ -24,6 +24,7 @@
  			u.name teacherName,
  			g.course_id courseId,
  			c.course_name courseName,
+ 			c.course_type courseType,
  			g.remark,
  			g.create_time createTime,
  			g.update_time updateTime
@@ -49,6 +50,7 @@
  			u.name teacherName,
  			g.course_id courseId,
  			c.course_name courseName,
+            c.course_type courseType,
  			g.remark,
  			g.create_time createTime,
  			g.update_time updateTime

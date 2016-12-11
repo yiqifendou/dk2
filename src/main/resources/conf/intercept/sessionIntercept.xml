@@ -57,5 +57,16 @@
 			/user/queryTeacherByCourseId
 		</requestMappings>
 	</sessionIntercept>
+    
+    <sessionIntercept handleClass="com.lc.crm.dk.base.interceptor.SessionHandler" handleMethod="checkOpenid" errorRequestMapping="/weixin/oauthGetCodeBySilence">
+        <requestMappings>
+            /weixin/toBindTeacher,
+            /weixin/bindTeacher,
+            /weixin/toTeacherMain,
+            /weixin/toGsrDetail,
+            /weixin/studyCourseInPrivete,
+            /weixin/studyCourseInPublic
+        </requestMappings>
+    </sessionIntercept>
 	
 </sessionIntercepts>

@@ -15,4 +15,7 @@ public interface UserMapper extends BaseMapper<User>{
 	public User queryPasswordById(Integer id);
 	public List<User> queryUserByStusAndType(Map<String, Object> map);
 	public List<User> queryTeacherByCourseId(@Param("courseId")String courseId);
+    public User queryByOpenid(User user);
+    public void teacherBindWeixin(User user);
+    public void teacherCancelBind(User user);
 }
