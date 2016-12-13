@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2016-07-18 14:19:40
+Date: 2016-12-13 09:22:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,7 +66,7 @@ INSERT INTO `grp` VALUES ('8', '我老师吉他提高班', '28', '3', '我老师
 INSERT INTO `grp` VALUES ('9', '我老师钢琴提高班', '28', '1', '我老师钢琴提高班111', '2016-06-29 22:00:27', null);
 INSERT INTO `grp` VALUES ('10', '我老师拉丁大气班', '28', '2', '我老师拉丁大气班', '2016-06-29 22:00:49', '2016-07-18 14:03:50');
 INSERT INTO `grp` VALUES ('11', 'kevin数学指导班', '1', '14', 'kevin数学指导班kevin数学指导班', '2016-07-04 23:55:29', '2016-07-05 22:44:08');
-INSERT INTO `grp` VALUES ('14', 'kevin钢琴班', '1', '1', 'kevin亲自指导', '2016-07-18 14:03:23', null);
+INSERT INTO `grp` VALUES ('14', 'kevin钢琴班', '1', '1', 'kevin亲自指导', '2016-07-18 14:03:23', '2016-09-18 17:30:42');
 
 -- ----------------------------
 -- Table structure for grp_stu_mapping
@@ -78,7 +78,7 @@ CREATE TABLE `grp_stu_mapping` (
   `grp_id` int(11) NOT NULL,
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of grp_stu_mapping
@@ -97,6 +97,7 @@ INSERT INTO `grp_stu_mapping` VALUES ('26', '20', '11', '2016-07-05 22:44:08');
 INSERT INTO `grp_stu_mapping` VALUES ('27', '26', '14', '2016-07-18 14:03:23');
 INSERT INTO `grp_stu_mapping` VALUES ('28', '27', '14', '2016-07-18 14:03:23');
 INSERT INTO `grp_stu_mapping` VALUES ('29', '26', '10', '2016-07-18 14:03:50');
+INSERT INTO `grp_stu_mapping` VALUES ('31', '28', '14', '2016-09-18 17:30:42');
 
 -- ----------------------------
 -- Table structure for student
@@ -117,7 +118,7 @@ CREATE TABLE `student` (
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student
@@ -139,6 +140,7 @@ INSERT INTO `student` VALUES ('24', '三分', '11212', '啊啊啊', '1', '1', '2
 INSERT INTO `student` VALUES ('25', 'w山', '121299911', '搭讪', '1', '1', '2016-07-07', '江湖中学2', '2去', null, '2016-07-17 14:38:35', '2016-07-17 14:38:54');
 INSERT INTO `student` VALUES ('26', '王一凡', '17705177022', '老爸', '420', '1', '1991-10-11', '舒城一中', '舒城一中', null, '2016-07-18 13:57:58', null);
 INSERT INTO `student` VALUES ('27', '王君帆', '17705177022', '我爸', '1200', '1', '1992-12-10', '书城中学', '书城中学', null, '2016-07-18 14:00:41', '2016-07-18 14:01:34');
+INSERT INTO `student` VALUES ('28', '尼玛', '17707119188', '尼玛吧', '0', '1', '2016-09-07', '嗷嗷学校', '暗室逢灯二位', null, '2016-09-18 17:08:01', null);
 
 -- ----------------------------
 -- Table structure for stu_course_flow
@@ -156,7 +158,7 @@ CREATE TABLE `stu_course_flow` (
   `teacher_work_id` varchar(50) NOT NULL COMMENT '教师点课id号',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stu_course_flow
@@ -201,6 +203,8 @@ INSERT INTO `stu_course_flow` VALUES ('121', '26', '1', '0', '1', '1', '0', '201
 INSERT INTO `stu_course_flow` VALUES ('122', '27', '1', '0', '1', '2', '0', '20160718周一上了两节课', 'b551e7e6a3914c42a4cb299e192535a2', '2016-07-18 14:04:32');
 INSERT INTO `stu_course_flow` VALUES ('123', '26', '1', '0', '1', '1', '0', '周一又上上一节课', '9bf9ba56a61a4fb98cd1f55d9e978c8d', '2016-07-18 14:04:58');
 INSERT INTO `stu_course_flow` VALUES ('124', '26', '2', '0', '28', '3', '0', '20160718周一上了3节拉丁课', '58a05f0474834f36a9cbc7fe1650562c', '2016-07-18 14:06:07');
+INSERT INTO `stu_course_flow` VALUES ('125', '28', '1', '1', '1', '0', '0', '初始化，为了能加入到某班级', 'f459fe532c634f908e6f05e3f3193c83', '2016-09-18 17:26:48');
+INSERT INTO `stu_course_flow` VALUES ('126', '27', '1', '0', '1', '1', '0', 'asf ', 'd26cc5ea38784a97a737f58bd12b4aa0', '2016-09-18 17:28:13');
 
 -- ----------------------------
 -- Table structure for stu_course_remain
@@ -215,7 +219,7 @@ CREATE TABLE `stu_course_remain` (
   `create_time` datetime NOT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stu_course_remain
@@ -243,7 +247,8 @@ INSERT INTO `stu_course_remain` VALUES ('21', '23', '15', '1', '0', '2016-07-17 
 INSERT INTO `stu_course_remain` VALUES ('22', '19', '15', '1', '0', '2016-07-17 15:10:37', null);
 INSERT INTO `stu_course_remain` VALUES ('26', '26', '1', '10', '2', '2016-07-18 13:59:07', '2016-07-18 14:04:58');
 INSERT INTO `stu_course_remain` VALUES ('27', '26', '2', '2', '3', '2016-07-18 13:59:30', '2016-07-18 14:06:07');
-INSERT INTO `stu_course_remain` VALUES ('28', '27', '1', '10', '2', '2016-07-18 14:01:12', '2016-07-18 14:04:32');
+INSERT INTO `stu_course_remain` VALUES ('28', '27', '1', '9', '3', '2016-07-18 14:01:12', '2016-09-18 17:28:13');
+INSERT INTO `stu_course_remain` VALUES ('29', '28', '1', '0', '0', '2016-09-18 17:26:48', null);
 
 -- ----------------------------
 -- Table structure for teacher_work_flow
@@ -289,6 +294,7 @@ INSERT INTO `teacher_work_flow` VALUES ('b30d87fc4e0f43f7a75ed75ddd77783a', '28'
 INSERT INTO `teacher_work_flow` VALUES ('b352b5a47c8f42c49f5e689a68e4ea56', '28', '1', '1', '1', '区分', '2016-07-17 21:22:40');
 INSERT INTO `teacher_work_flow` VALUES ('b551e7e6a3914c42a4cb299e192535a2', '1', '1', '2', '1', '20160718周一上了两节课', '2016-07-18 14:04:32');
 INSERT INTO `teacher_work_flow` VALUES ('cd2568e79cb047eb98fea31aa09b8a1b', '28', '1', '1', '1', '12121', '2016-07-17 22:17:24');
+INSERT INTO `teacher_work_flow` VALUES ('d26cc5ea38784a97a737f58bd12b4aa0', '1', '1', '1', '1', 'asf ', '2016-09-18 17:28:13');
 INSERT INTO `teacher_work_flow` VALUES ('e0a14fe792a2477db09f88dd413c347f', '28', '1', '1', '1', '温柔俺323', '2016-07-17 21:21:55');
 INSERT INTO `teacher_work_flow` VALUES ('e685df2b8c234df8a465778fddd08619', '28', '3', '4', '1', '天天', '2016-07-17 21:18:10');
 INSERT INTO `teacher_work_flow` VALUES ('e9c671ae12574feba5320bb7ed19a0f7', '1', '14', '1', '2', '1111', '2016-07-17 21:42:42');
@@ -312,6 +318,7 @@ CREATE TABLE `user` (
   `remark` varchar(255) DEFAULT NULL,
   `create_time` datetime NOT NULL,
   `update_time` datetime DEFAULT NULL,
+  `openid` varchar(50) DEFAULT NULL COMMENT '用于教师绑定微信',
   PRIMARY KEY (`id`),
   UNIQUE KEY `account_unique` (`account`),
   UNIQUE KEY `name` (`name`)
@@ -320,10 +327,10 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '19012402', 'b9979d181ac6cad9c8304df14c273d77', 'kevin', '17707119188', '1', '2016-06-23', '1,2,14,15', '1', '我是管理员', '2016-06-23 22:44:24', '2016-07-18 14:02:48');
-INSERT INTO `user` VALUES ('2', '19012403', '883fc99983773cfcc6c33bdf0b2ec010', 'tony', '18890877678', '0', '2016-06-23', '15', '1', 'i am tony', '2016-06-23 22:46:13', '2016-06-25 22:25:19');
-INSERT INTO `user` VALUES ('3', '19012404', '883fc99983773cfcc6c33bdf0b2ec010', '何晓', '15563698256', '0', '2016-06-24', '2', '1', '12121', '2016-06-24 16:09:44', '2016-07-05 23:37:53');
-INSERT INTO `user` VALUES ('4', '19011111', '883fc99983773cfcc6c33bdf0b2ec010', '天下', '17705177022', '0', '2016-06-16', '1,14', '1', '', '2016-06-24 23:18:42', '2016-06-25 19:09:54');
-INSERT INTO `user` VALUES ('26', '19101120', '883fc99983773cfcc6c33bdf0b2ec010', '刘老师', '18977886789', '0', '2016-06-01', '1,4', '1', '刘老师擅长钢琴和tango', '2016-06-26 22:34:02', null);
-INSERT INTO `user` VALUES ('27', '1112', '883fc99983773cfcc6c33bdf0b2ec010', '22', '1112', '0', '2016-06-22', '1,14', '0', '222', '2016-06-27 15:06:19', '2016-06-27 21:37:18');
-INSERT INTO `user` VALUES ('28', '113', 'b9979d181ac6cad9c8304df14c273d77', '我老师', '19088998876', '0', '2016-06-01', '1,2,3,4', '1', 'asfd', '2016-06-28 21:38:04', '2016-06-30 21:56:05');
+INSERT INTO `user` VALUES ('1', '19012402', 'b9979d181ac6cad9c8304df14c273d77', 'kevin', '17707119188', '1', '2016-06-23', '1,2,14,15', '1', '你大爷999', '2016-06-23 22:44:24', '2016-07-18 14:02:48', 'o8E_xwxCSghQCcePBTongP5nBqWo');
+INSERT INTO `user` VALUES ('2', '19012403', '883fc99983773cfcc6c33bdf0b2ec010', 'tony', '18890877678', '0', '2016-06-23', '15', '1', 'i am tony', '2016-06-23 22:46:13', '2016-06-25 22:25:19', null);
+INSERT INTO `user` VALUES ('3', '19012404', '883fc99983773cfcc6c33bdf0b2ec010', '何晓', '15563698256', '0', '2016-06-24', '2', '1', '12121', '2016-06-24 16:09:44', '2016-07-05 23:37:53', null);
+INSERT INTO `user` VALUES ('4', '19011111', '883fc99983773cfcc6c33bdf0b2ec010', '天下', '17705177022', '0', '2016-06-16', '1,14', '1', '', '2016-06-24 23:18:42', '2016-06-25 19:09:54', null);
+INSERT INTO `user` VALUES ('26', '19101120', '883fc99983773cfcc6c33bdf0b2ec010', '刘老师', '18977886789', '0', '2016-06-01', '1,4', '1', '刘老师擅长钢琴和tango', '2016-06-26 22:34:02', null, null);
+INSERT INTO `user` VALUES ('27', '1112', '883fc99983773cfcc6c33bdf0b2ec010', '22', '1112', '0', '2016-06-22', '1,14', '0', '222', '2016-06-27 15:06:19', '2016-06-27 21:37:18', null);
+INSERT INTO `user` VALUES ('28', '113', 'b9979d181ac6cad9c8304df14c273d77', '我老师', '19088998876', '0', '2016-06-01', '1,2,3,4', '1', 'asfd', '2016-06-28 21:38:04', '2016-06-30 21:56:05', null);
