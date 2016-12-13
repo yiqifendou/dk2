@@ -64,6 +64,7 @@
             /weixin/bindTeacher,
             /weixin/toTeacherMain,
             /weixin/toGsrDetail,
+			/wexin/toStuStudyCourse,
             /weixin/studyCourseInPrivete,
             /weixin/studyCourseInPublic
         </requestMappings>
