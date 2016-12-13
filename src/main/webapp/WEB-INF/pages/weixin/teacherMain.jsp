@@ -24,6 +24,12 @@
         a:last-child{
             border-bottom:1px solid #f0f1f2;
         }
+        .menu .menuitem em {
+            line-height: 40px;
+        }
+        .account-menu em {
+            padding-left: 0px;
+        }
     </style>
 </head>
 <body>
@@ -39,7 +45,7 @@
     <c:forEach items="${grpList}" var="grp">
         <a role="menuitem" href="${ctx}/weixin/toGsrDetail?grpId=${grp.id}" class="menuitem">
             <i>详情</i>
-            <em class="fav">
+            <em>
                 ${grp.grpName}(${grp.courseName})
             </em>
         </a>
