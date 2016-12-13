@@ -124,11 +124,11 @@
                             }else{
                                 layer.msg(rs.msg);
                             }
-                            canStudy = true;
+                            //canStudy = true;
                         },
                         error:function(){
                             layer.msg("系统繁忙！");
-                            canStudy = true;
+                            //canStudy = true;
                         }
                     });
                 }
