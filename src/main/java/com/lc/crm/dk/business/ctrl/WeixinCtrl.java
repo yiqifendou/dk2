@@ -119,8 +119,9 @@ public class WeixinCtrl extends BaseController{
     public String oauthGetCodeBySilence(HttpServletRequest request){
         String rUrl = "http://"+request.getHeader("host")+request.getContextPath()+"/weixin/codeTransBySilence";
         String oauthUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+ WeixinConstant.appid+"&redirect_uri="+rUrl+"&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
-        //return "redirect:"+oauthUrl;
-        return "redirect:"+rUrl+"?code=111111";
+        return "redirect:"+oauthUrl;
+		//TODO 专门用于测试
+        //return "redirect:"+rUrl+"?code=111111";
     }
 
     /**
@@ -131,9 +132,9 @@ public class WeixinCtrl extends BaseController{
     public String codeTransBySilence(HttpServletRequest request,HttpServletResponse response,Model model) throws IOException {
         String code = request.getParameter("code");
         String accessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+WeixinConstant.appid+"&secret="+WeixinConstant.appsecret+"&code="+code+"&grant_type=authorization_code";
-        //String responseStr = HttpUtil.requestGet(accessTokenUrl);
+        String responseStr = HttpUtil.requestGet(accessTokenUrl);
         //TODO 专门用于测试
-        String responseStr = "{\"access_token\":\"OadT0_fTGO9i7DuOxhlrn7f8m_Ieb4ftIIBIms_bX3QOueirYX3o6RTkqUo96egFfh4UneXoy4Uj5He_FN1oar82pFkjnkbfP36Q_cB_wns\",\"expires_in\":7200,\"refresh_token\":\"nYArAQwxhW14pvENm76CbjFr-lI5V8eOW_CtnvzRksBr4j5225fxjULE7QC6sQVWABmy_yQnPb4b3eEpSMA3j-Tga2Q3lkxI49LcSx99NRk\",\"openid\":\"o8E_xwxCSghQCcePBTongP5nBqWo\",\"scope\":\"snsapi_base\"}";
+        //String responseStr = "{\"access_token\":\"OadT0_fTGO9i7DuOxhlrn7f8m_Ieb4ftIIBIms_bX3QOueirYX3o6RTkqUo96egFfh4UneXoy4Uj5He_FN1oar82pFkjnkbfP36Q_cB_wns\",\"expires_in\":7200,\"refresh_token\":\"nYArAQwxhW14pvENm76CbjFr-lI5V8eOW_CtnvzRksBr4j5225fxjULE7QC6sQVWABmy_yQnPb4b3eEpSMA3j-Tga2Q3lkxI49LcSx99NRk\",\"openid\":\"o8E_xwxCSghQCcePBTongP5nBqWo\",\"scope\":\"snsapi_base\"}";
         JSONObject responseJson = JSONObject.parseObject(responseStr);
         String openId = responseJson.getString("openid");
         if(StringUtils.isNotBlank(openId)){
